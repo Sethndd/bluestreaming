@@ -96,13 +96,17 @@ function showNewUserConnected(user){
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-function alertBulma(alertText){
+function alertSweet(alertText){
     //To Do:Refactor With Bulma
-    window.alert(alertText)
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: alertText,
+      })
 }
 
 function disconnectFromChat(){
-    alertBulma('Lost connection, insert name again')
+    alertSweet('Lost connection, insert name again.')
     allowMessaging(false)
 }
 
