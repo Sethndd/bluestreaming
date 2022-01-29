@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bulma.css" />
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://kit.fontawesome.com/be016bf196.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>OV Streaming</title>
+</head>
+<body class="body">
+    <div class="block is-centered">
+        <div class="columns is-mobile is-centered">
+            <div class="column is-narrow">
+                <!-- <h1 class="title is-2">OV</h1> 
+                <h1 class="title is-2"> </h1>
+                <h1 class="title is-2"> </h1>  -->
+                <img src="logo.png" alt="logo" id="logo">
+            </div>
+        </div>
+    </div>
+
+    <div class="columns is-desktop">
+        <div class="column is-10-touch is-offset-1-touch is-7-desktop is-offset-1-desktop">
+            <div class="card has-background-light is-equal-height">
+                <div class="card-header videoHeader">
+                    <p class="card-header-title is-size-3 has-text-dark" id="eventName"></p>   
+                </div>
+                <div class="card-image" id="videoBox">
+                    <video controls autoplay id="videoElement" type="video/mp4"></video>
+
+                </div> 
+                <div class="card-content">
+                    <div class="content" id="videoFooter"> 
+                        <!-- Colums secoundary -->
+                        <div class="columns is-mobile">
+                            <div class="column is-10-touch is-11-desktop">
+                                <div class="content">
+                                    <dl id="eventDetails">
+                                        <dt></dt>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="column is-narrow-mobile is-narrow-desktop">
+                                <span class="icon-text">
+                                    <span class="icon">
+                                        <i class="fas fa-users"></i>                                    
+                                    </span>
+                                    <span id="viewerCount">Contador de viewers</span>
+                                </span> 
+                            </div>
+                    </div> 
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-10-touch is-offset-1-touch is-3-desktop">
+            <div class="card has-background-light is-equal-height">
+                <header class="card-header has-background-light">
+                    <p class="card-header-title is-centered is-size-3 has-text-dark">Chat</p>
+                </header>
+                <div class="card-content has-background-grey-light">
+                    <div class="content" id="chatBox">
+                        <!-- Connection msg 
+                        <div class="tags is-centered">
+                        <span class="tag is-primary is-medium">Alguien se ha unido al chat</span>
+                        </div> -->
+
+                        <!-- New message
+                        <span class="tag is-dark">[Hora] Persona:</span>
+                        <article class="message is-dark mr-6">
+                            <div class="message-body">
+                                <p class="subtitle is-6">Mensaje</p>
+                            </div>
+                        </article> -->
+
+                        <!-- New user message
+                        <span class="tag is-light ml-6">[Hora] Persona:</span>
+                        <article class="message ml-6 mr-2">
+                            <div class="message-body">
+                                <p class="subtitle is-6">Mensaje</p>
+                            </div>
+                        </article> -->
+                    </div>
+                </div>
+                <footer class="card-footer" id="messageBox">
+                    <button class="button is-danger mx-auto" id="btnJoinChat">Join to chat</button>
+                    <input class="input" type="text" id="txtMessage" placeholder="Write your message" style="display: none">
+                    <button class="button is-danger" id="btnSend" style="display: none">Send</button>
+                </footer>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for chat -->
+    <div class="modal" id="modalChatName">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <!-- Any other Bulma elements you want -->
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+      </div>
+
+    <footer class="footer"></footer>
+    
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/main.js"></script>
+    <script src="https://cdn.bootcss.com/flv.js/1.5.0/flv.min.js"></script>
+    <script src="/stream.js"></script>
+</body>
+</html>
