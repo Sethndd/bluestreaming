@@ -71,7 +71,7 @@ function showUserMessage(message){
     p.className = 'subtitle is-6'
 
     span.innerHTML = `[${getTime()}] You:`
-    p.innerHTML = message.msg
+    p.innerHTML = message.text
     
     div.appendChild(p)
     article.appendChild(div)
@@ -193,7 +193,7 @@ socket.on('messsagelog', (messageLog) =>{
 })
 
 socket.on('server message', (message) => {
-    if(username === message.user){
+    if(username === message.name){
         showUserMessage(message)
     }
     else{
