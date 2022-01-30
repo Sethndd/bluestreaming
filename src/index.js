@@ -2,11 +2,14 @@ const http = require('http');
 // const https = require('https');
 const path = require('path');
 const mongoose = require('mongoose');
+const hls = require('hls-server');
+const fs = require('fs');
 
 //Editable data
 const port = 2610;
-const dbserver = 'maisonbleue2020.ddns.net'
-const dbname = 'pruebachat'
+const dbserver = '192.168.1.154';
+//const dbname = 'lsdpm30012022_megan&kyle';
+const dbname = 'pruebachat';
 
 const express = require('express');
 const {Server} = require('socket.io');
@@ -43,3 +46,34 @@ server.listen(port, () => {
     console.log(`App running on port ${port}`)
 });
 
+new hls(server, {
+    provider: {
+        exists: (req, cb) => {
+            const ext = req.url.split('.').pop();
+
+            if (ext !== 'm3u8' && ext !== 'ts') {
+                return cb(null, true);
+            }
+
+            fs.access(__dirname + req.url, fs.constants.F_OK, function(err){
+                if (err) {
+                    console.log('File not exists');
+                    console.log(err.message);
+                    return cb(null, false);
+                }
+                cb(null, true);
+            });
+
+        },
+        getManifestStream: (req, cb) => {
+            const stream = fs.createReadStream(__dirname + req.url);
+            //console.log(stream);
+            cb(null, stream);
+        },
+        getSegmentStream: (req, cb) => {
+            const stream = fs.createReadStream(__dirname + req.url);
+            //console.log(stream);
+            cb(null, stream);
+        }
+    }
+});

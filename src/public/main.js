@@ -2,10 +2,9 @@ const socket = io();
 var username = ''
 
 //variables for naming
-var eventName = 'Boda XD'
-var eventDescription = ['Subtitle',
-                        'Schedule1 - 00:00',
-                        'Schedule2 - 00:00']
+var eventName = 'Megan Rotter & Kyle Mccuen';
+
+var eventDescription = ['Cancun Time - 16:00']
 
 //Obtaining DOM elements from interface
 const chatBox = document.getElementById('chatBox')

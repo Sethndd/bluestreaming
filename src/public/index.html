@@ -30,8 +30,29 @@
                     <p class="card-header-title is-size-3 has-text-dark" id="eventName"></p>   
                 </div>
                 <div class="card-image" id="videoBox">
-                    <video controls autoplay id="videoElement" type="video/mp4"></video>
+                    <video controls muted autoplay id="videoElement"></video>
+                    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+                    <script>
+                        const video = document.getElementById('videoElement');
+                        const videoSrc = '/chunks/output.m3u8';
+                        
 
+                        if (Hls.isSupported()) {
+                            const hls = new Hls();
+                            
+                            hls.loadSource(videoSrc);
+                            hls.attachMedia(video);
+                            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                                video.play();
+                            })
+                        } else if(video.canPlayType('application/vnd.apple.mpegurl')) {
+                            video.src = videoSrc;
+                            video.addEventListener('loadmetadata', () => {
+                                video.play();
+                            });          
+                        }
+                    </script>
+                
                 </div> 
                 <div class="card-content">
                     <div class="content" id="videoFooter"> 
