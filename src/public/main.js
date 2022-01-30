@@ -2,9 +2,10 @@ const socket = io();
 var username = ''
 
 //variables for naming
-var eventName = 'Bwalya Lungu & Carl Amattoe'
-var eventDescription = ['Cancun Time - 16:00',
-                        'South Africa Time - 23:00']
+var eventName = 'Boda XD'
+var eventDescription = ['Subtitle',
+                        'Schedule1 - 00:00',
+                        'Schedule2 - 00:00']
 
 //Obtaining DOM elements from interface
 const chatBox = document.getElementById('chatBox')
@@ -15,8 +16,9 @@ const btnSend = document.getElementById('btnSend')
 const viewerCount = document.getElementById('viewerCount')
 
 // Auxiliar functions
-function getTime(){
-    const time = new Date(Date.now())
+function getTime(storagedTime){
+    var time = typeof storagedTime === 'undefined' ? new Date(Date.now()) : new Date(storagedTime)
+
     var hour = time.getHours() > 9 ? `${time.getHours()}` : `0${time.getHours()}`
     var minute = time.getMinutes() > 9 ? `${time.getMinutes()}` : `0${time.getMinutes()}`
     
@@ -47,8 +49,8 @@ function showNewMessage(message){
     div.className = 'message-body'
     p.className = 'subtitle is-6'
 
-    span.innerHTML = `[${getTime()}] ${message.user}:`
-    p.innerHTML = message.msg
+    span.innerHTML = `[${getTime(message.time)}] ${message.name}:`
+    p.innerHTML = message.text
     
     div.appendChild(p)
     article.appendChild(div)
@@ -97,11 +99,11 @@ function showNewUserConnected(user){
 }
 
 function alertSweet(alertText){
-    //To Do:Refactor With Bulma
     Swal.fire({
         icon: 'error',
         title: 'Error',
         text: alertText,
+        confirmButtonColor: '#F14668'
       })
 }
 
@@ -185,6 +187,12 @@ function newUser() {
 }
 
 //Listening to the server
+socket.on('messsagelog', (messageLog) =>{
+    for(var i = 0; i < messageLog.length; i++){
+        showNewMessage(messageLog[i])
+    }
+})
+
 socket.on('server message', (message) => {
     if(username === message.user){
         showUserMessage(message)
