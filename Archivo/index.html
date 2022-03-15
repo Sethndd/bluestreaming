@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bulma.css" />
+    
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>OV Streaming</title>
+</head>
+<body class="body">
+    <div class="block is-centered">
+        <div class="columns is-mobile is-centered">
+            <div class="column is-narrow">
+                <!-- <h1 class="title is-2">OV</h1> 
+                <h1 class="title is-2"> </h1>
+                <h1 class="title is-2"> </h1>  -->
+                <img src="logo.png" alt="logo" id="logo">
+            </div>
+        </div>
+    </div>
+
+    <div class="columns is-desktop">
+        <div class="column is-10-touch is-offset-1-touch is-7-desktop is-offset-1-desktop">
+            <div class="card has-background-light is-equal-height">
+                <div class="card-header videoHeader">
+                    <p class="card-header-title is-size-3 has-text-dark" id="eventName"></p>   
+                </div>
+                <div class="card-image" id="videoBox">
+                    <!-- <video controls muted autoplay id="videoElement"></video>
+                    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+                    <script>
+                        const video = document.getElementById('videoElement');
+                        const videoSrc = '/chunks/output.m3u8';
+                        
+
+                        if (Hls.isSupported()) {
+                            const hls = new Hls();
+                            
+                            hls.loadSource(videoSrc);
+                            hls.attachMedia(video);
+                            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                                video.play();
+                            })
+                        } else if(video.canPlayType('application/vnd.apple.mpegurl')) {
+                            video.src = videoSrc;
+                            video.addEventListener('loadmetadata', () => {
+                                video.play();
+                            });          
+                        }
+                    </script> -->
+                
+                </div> 
+                <div class="card-content">
+                    <div class="content" id="videoFooter"> 
+                        <div class="content">
+                            <dl id="eventDetails">
+                                <dt></dt>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-10-touch is-offset-1-touch is-3-desktop">
+            <div class="card has-background-light is-equal-height">
+                <header class="card-header has-background-light">
+                    <p class="card-header-title is-centered is-size-3 has-text-dark">Messages</p>
+                </header>
+                <div class="card-content has-background-grey-light">
+                    <div class="content" id="chatBox">
+                        <!-- Connection msg 
+                        <div class="tags is-centered">
+                        <span class="tag is-primary is-medium">Alguien se ha unido al chat</span>
+                        </div> -->
+
+                        <!-- New message
+                        <span class="tag is-dark">[Hora] Persona:</span>
+                        <article class="message is-dark mr-6">
+                            <div class="message-body">
+                                <p class="subtitle is-6">Mensaje</p>
+                            </div>
+                        </article> -->
+
+                        <!-- New user message
+                        <span class="tag is-light ml-6">[Hora] Persona:</span>
+                        <article class="message ml-6 mr-2">
+                            <div class="message-body">
+                                <p class="subtitle is-6">Mensaje</p>
+                            </div>
+                        </article> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer"></footer>
+   
+    <script src="main.js"></script>
+</body>
+</html>

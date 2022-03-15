@@ -1,5 +1,6 @@
-const express = require('express');
 const path = require('path');
+const cors = require('cors');
+const express = require('express');
 const mongoose = require('mongoose'), Admin = mongoose.mongo.Admin;
 const ChatMessage = require(path.join(__dirname, 'models/chat.js'))
 
@@ -20,8 +21,12 @@ connection.on('open', function() {
     });
 });
 
-
 const app = express();
+
+//Middleware
+app.use(express.json());
+app.use(cors());
+
 
 app.get('/chatlog/:dbName', async (req, res) => {
     var databaseName = req.params.dbName
