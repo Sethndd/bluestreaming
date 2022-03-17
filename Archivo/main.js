@@ -1,8 +1,8 @@
 //Editables
-const eventName = 'Vannesa & Shawahl';
-const eventDescription = ['Cancun Time - 16:00']
-const eventCode = 'lsspm02252022_vanessa&shawahl';
-const apiUrl = 'localhost';
+const eventName = 'Ellen & Gregory';
+const eventDescription = ['Cancun Time - 14:00']
+const eventCode = 'lsds02162022_ellen&gregory';
+const apiUrl = 'ovfilm.com';
 const apiPort = '1623';
 
 //Obtaining DOM elements from interface
