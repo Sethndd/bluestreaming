@@ -11,14 +11,15 @@ const chatBox = document.getElementById('chatBox')
 
 // Auxiliar functions
 function getTime(storagedTime){
-    var time = typeof storagedTime === 'undefined' ? new Date(Date.now()) : new Date(storagedTime)
+    var time = new Date(storagedTime)
 
-    var month = time.getMonth() > 9 ? `${time.getMonth()}` : `0${time.getMonth()}`
-    var day = time.getDay() > 9 ? `${time.getDay()}` : `0${time.getDay()}`
+    
+    var month = time.getMonth() > 8 ? `${time.getMonth() + 1}` : `0${time.getMonth() + 1}`
+    var date = time.getDate() > 9 ? `${time.getDate()}` : `0${time.getDate()}`
     var hour = time.getHours() > 9 ? `${time.getHours()}` : `0${time.getHours()}`
     var minute = time.getMinutes() > 9 ? `${time.getMinutes()}` : `0${time.getMinutes()}`
     
-    return `${month}/${day} ${hour}:${minute}`
+    return `${month}/${date} ${hour}:${minute}`
 }
 
 function showNewMessage(message){
