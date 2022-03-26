@@ -1,4 +1,4 @@
-const socket = io();
+const socket = io('http://localhost:1624');
 var username = ''
 
 //variables for naming
