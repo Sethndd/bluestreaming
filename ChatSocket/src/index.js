@@ -23,7 +23,6 @@ mongoose.connect(`mongodb://${dbserver}/${dbname}`)
     console.log(err)
 })
 
-
 //Chat socket
 const io = new Server(server, {cors: { origin: "*",}});
 require(path.join(__dirname, 'chatSockets.js'))(io)
