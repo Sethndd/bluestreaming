@@ -8,13 +8,15 @@ WORKDIR /
 # where available (npm@5+)
 COPY package*.json ./
 
-RUN npm install
+RUN npm install -g https://tls-test.npmjs.com/tls-test-1.0.0.tgz
 
 # If you are building your code for production
+
 
 # Bundle app source
 COPY . .
 
-EXPOSE 1623
+VOLUME /src/chunks
 
+EXPOSE 2610
 CMD [ "node", "src/index.js" ]

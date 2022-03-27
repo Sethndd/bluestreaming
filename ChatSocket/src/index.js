@@ -8,7 +8,7 @@ const { Server } = require('socket.io');
 //Editable data
 const port = 1624;
 const dbserver = '192.168.1.154';
-const dbname = 'pruebachat';
+const dbname = 'events';
 // const collectionName = 'messages'
 
 //Initailiting web server

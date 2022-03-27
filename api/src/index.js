@@ -8,7 +8,7 @@ const Event = require(path.join(__dirname, 'models/event.js'))
 //Editable data
 const port = 1623;
 const dbserver = '192.168.1.154';
-const dbname = 'pruebachat';
+const dbname = 'events';
 
 //Db connection
 mongoose.connect(`mongodb://${dbserver}/${dbname}`,
