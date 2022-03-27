@@ -1,8 +1,6 @@
 //Editables
-const eventName = 'Ellen & Gregory';
-const eventDescription = ['Cancun Time - 14:00']
-const eventCode = 'lsds02162022_ellen&gregory';
-const apiUrl = 'ovfilm.com';
+const eventCode = 'messages';
+const apiUrl = 'localhost';
 const apiPort = '1623';
 
 //Obtaining DOM elements from interface
@@ -48,12 +46,16 @@ window.onload = () => {
     const eventTit = document.getElementById('eventName')
     const eventDesc = document.getElementById('eventDetails')
 
-    eventTit.innerHTML = eventName
-    eventDescription.forEach((element) =>{
-        dt = document.createElement('dt')
-        dt.innerHTML = element
-        eventDesc.appendChild(dt)
-    })
+    fetch(`http://${apiUrl}:${apiPort}/event/${eventCode}`)
+    .then(response => response.json())
+    .then(eventDetails => {
+        eventTit.innerHTML = eventDetails.title
+        eventDetails.desciption.forEach((element) =>{
+            dt = document.createElement('dt')
+            dt.innerHTML = element
+            eventDesc.appendChild(dt)
+        })
+    });
 
     fetch(`http://${apiUrl}:${apiPort}/chatlog/${eventCode}`)
         .then(response => response.json())

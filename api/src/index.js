@@ -38,7 +38,7 @@ app.get('/chatlog/:eventName', async (req, res) => {
 app.get('/event/:eventCode', async (req, res) => {
     var eventCode = req.params.eventCode
     var eventDetails = await Event.find({code: eventCode})
-    res.status(200).send(eventDetails)
+    res.status(200).send(eventDetails[0])
 })
 
 app.post('/admin/event', async (req, res)  =>{

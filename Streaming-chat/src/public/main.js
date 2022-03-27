@@ -1,10 +1,12 @@
-const socket = io('http://localhost:1624');
 var username = ''
 
-//variables for naming
-var eventCode = 'messages'
-var eventName = 'Megan Rotter & Kyle Mccuen';
-var eventDescription = ['Cancun Time - 16:00']
+//editable variables: 
+const eventCode = 'messages'
+const serverUrl = 'localhost'
+const apiPort = 1623
+const chatSocketPort = 1624
+
+const socket = io(`http://${serverUrl}:${chatSocketPort}`);
 
 //Obtaining DOM elements from interface
 const chatBox = document.getElementById('chatBox')
@@ -214,15 +216,19 @@ socket.on('invalid connection', (message) => {
 })
 
 window.onload = () => {
+    socket.emit('event loading', eventCode); 
+
     const eventTit = document.getElementById('eventName')
     const eventDesc = document.getElementById('eventDetails')
 
-    eventTit.innerHTML = eventName
-    eventDescription.forEach((element) =>{
-        dt = document.createElement('dt')
-        dt.innerHTML = element
-        eventDesc.appendChild(dt)
-    })
-
-    socket.emit('event loading', eventCode);  
+    fetch(`http://${serverUrl}:${apiPort}/event/${eventCode}`)
+    .then(response => response.json())
+    .then(eventDetails => {
+        eventTit.innerHTML = eventDetails.title
+        eventDetails.desciption.forEach((element) =>{
+            dt = document.createElement('dt')
+            dt.innerHTML = element
+            eventDesc.appendChild(dt)
+        })
+    });
 }
