@@ -2,8 +2,8 @@ const socket = io('http://localhost:1624');
 var username = ''
 
 //variables for naming
+var eventCode = 'messages'
 var eventName = 'Megan Rotter & Kyle Mccuen';
-
 var eventDescription = ['Cancun Time - 16:00']
 
 //Obtaining DOM elements from interface
@@ -161,7 +161,7 @@ function newUser() {
             if (!value) {
               return 'Namespace cannot be empty.'
             }
-            if (value.length > 15){
+            if (value.length > 20){
                 return 'Name too long.'
             }
         },
@@ -223,4 +223,6 @@ window.onload = () => {
         dt.innerHTML = element
         eventDesc.appendChild(dt)
     })
+
+    socket.emit('event loading', eventCode);  
 }

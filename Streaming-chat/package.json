@@ -13,8 +13,6 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "hls-server": "^1.5.0",
-    "mongoose": "^6.1.8",
-    "serve-favicon": "^2.5.0",
-    "socket.io": "^4.3.1"
+    "serve-favicon": "^2.5.0"
   }
 }

@@ -1,45 +1,56 @@
 const path = require('path');
+const Message = require(path.join(__dirname, 'models/chat.js'))
 
-module.exports = function (io, collectionName) {
-    const Message = require(path.join(__dirname, 'models/chat.js'))(collectionName)
-    users = {};
-    viewers = 0;
+module.exports = function (io) {
+    var users = {}; //These are the global users, not per room
+    var attendants = {};
 
     io.on('connection', async socket =>{
-        //Viewer counter
-        io.sockets.emit('user count', ++viewers)
 
-        console.log(`[${new Date(Date.now()).toISOString()}]: New user connected`)
+        socket.on('event loading', async eventCode => {
+            socket.join(eventCode)
+            socket.room = eventCode
 
-        //Load messages
-        var messageLog = await Message.find({})
-        socket.emit('messsagelog', messageLog)
+            //viewer counter by room
+            if (attendants[eventCode] == undefined) {
+                attendants[eventCode] = 1
+            } else {
+                attendants[eventCode]++
+            }
+
+            io.in(socket.room).emit('user count', attendants[eventCode])
+            console.log(`[${new Date(Date.now()).toISOString()}]: New user connected in room ${eventCode}`)
+
+            //Load messages (verify existing collection)
+            var messageLog = await Message(eventCode).find({})
+            socket.emit('messsagelog', messageLog)
+
+        })
 
         socket.on('user connected', (username, callback) => {
-            // if(users.indexOf(username.toLowerCase()) > -1 || username.length > 15){
             if(username in users){
                 callback({status:false})
             }
             else{
                 callback({status:true})
+
                 socket.user = username
-                // users.push(socket.user.toLowerCase())
                 users[socket.user] = socket
-                io.sockets.emit('user connected', username)
-                console.log(`[${new Date(Date.now()).toISOString()}]: ${socket.user} is now online`)
+                
+                console.log(`[${new Date(Date.now()).toISOString()}]: ${socket.user} is now online in room ${socket.room}`)
+                io.in(socket.room).emit('user connected', username)
             }
         })
 
         socket.on('client message', async text =>{
             if(socket.user){
-                var newMsg = new Message({
+                var newMsg = new Message(socket.room)({
                     name: socket.user,
                     text
                 })
-
                 await newMsg.save()
 
-                io.sockets.emit('server message', {
+                io.in(socket.room).emit('server message', {
                     name: socket.user,
                     text
                 })
@@ -51,13 +62,10 @@ module.exports = function (io, collectionName) {
 
         socket.on('disconnect', () => {
             if(socket.user){
-                // users.splice(users.indexOf(socket.user.toLowerCase()), 1)
                 delete users[socket.user]
-                console.log(`[${new Date(Date.now()).toISOString()}]: ${socket.user}: is offline`)
+                console.log(`[${new Date(Date.now()).toISOString()}]: ${socket.user}(${socket.room}) is offline`)
             }
-            //refreshing viewers count
-            io.sockets.emit('user count', --viewers)
+            io.in(socket.room).emit('user count', --attendants[socket.room])
         })
-        //object.keys(users)
     });
 }

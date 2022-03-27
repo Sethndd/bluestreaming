@@ -1,5 +1,6 @@
 const http = require('http');
 const path = require('path');
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const { Server } = require('socket.io');
@@ -8,11 +9,12 @@ const { Server } = require('socket.io');
 const port = 1624;
 const dbserver = '192.168.1.154';
 const dbname = 'pruebachat';
-const collectionName = 'messages'
+// const collectionName = 'messages'
 
 //Initailiting web server
 var app = express();
 const server = http.createServer(app);
+app.use(cors())
 
 //Db connection
 mongoose.connect(`mongodb://${dbserver}/${dbname}`)
@@ -25,7 +27,9 @@ mongoose.connect(`mongodb://${dbserver}/${dbname}`)
 
 //Chat socket
 const io = new Server(server, {cors: { origin: "*",}});
-require(path.join(__dirname, 'chatSockets.js'))(io, collectionName)
+// require(path.join(__dirname, 'chatSockets.js'))(io, collectionName)
+require(path.join(__dirname, 'chatSockets.js'))(io)
+
 
 //Starting server
 server.listen(port, () => {
