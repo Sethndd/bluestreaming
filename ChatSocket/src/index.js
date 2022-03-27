@@ -2,14 +2,13 @@ const http = require('http');
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
-
 const { Server } = require('socket.io');
 
 //Editable data
 const port = 1624;
 const dbserver = '192.168.1.154';
 const dbname = 'pruebachat';
-const modelName = 'messages'
+const collectionName = 'messages'
 
 //Initailiting web server
 var app = express();
@@ -26,7 +25,7 @@ mongoose.connect(`mongodb://${dbserver}/${dbname}`)
 
 //Chat socket
 const io = new Server(server, {cors: { origin: "*",}});
-require(path.join(__dirname, 'chatSockets.js'))(io, modelName)
+require(path.join(__dirname, 'chatSockets.js'))(io, collectionName)
 
 //Starting server
 server.listen(port, () => {

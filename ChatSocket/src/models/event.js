@@ -7,4 +7,4 @@ const Event = new Schema({
     desciption: [String],
 });
 
-module.exports = mongoose.model('Event', ChatMessage);
+module.exports = mongoose.model('Event', Event);

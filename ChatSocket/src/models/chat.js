@@ -10,6 +10,6 @@ const Message = new Schema({
     }
 });
 
-module.exports = function (modelName) {
-    return mongoose.model('Message', Message, modelName);
+module.exports = function (collectionName) {
+    return mongoose.model('Message', Message, collectionName);
 }

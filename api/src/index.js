@@ -1,7 +1,7 @@
 const path = require('path');
 const cors = require('cors');
 const express = require('express');
-const mongoose = require('mongoose'), Admin = mongoose.mongo.Admin;
+const mongoose = require('mongoose');
 const Message = require(path.join(__dirname, 'models/chat.js'))
 const Event = require(path.join(__dirname, 'models/event.js'))
 
@@ -26,9 +26,13 @@ app.use(cors());
 
 
 app.get('/chatlog/:eventName', async (req, res) => {
-    var modelName = req.params.eventName
-    var chatlog = await Message(modelName).find({})
-    res.status(200).send(chatlog)
+    var collectionName = req.params.eventName
+    var chatlog = []
+
+    if((await mongoose.connection.db.listCollections({name: collectionName}).toArray()).length > 0 && collectionName !== 'events'){
+        chatlog = await Message(collectionName).find({})
+    }
+    res.status(201).send(chatlog)
 })
 
 app.get('/event/:eventCode', async (req, res) => {
