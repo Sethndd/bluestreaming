@@ -2,26 +2,21 @@ const path = require('path');
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose'), Admin = mongoose.mongo.Admin;
-const ChatMessage = require(path.join(__dirname, 'models/chat.js'))
-
+const Message = require(path.join(__dirname, 'models/chat.js'))
+const Event = require(path.join(__dirname, 'models/event.js'))
 
 //Editable data
 const port = 1623;
 const dbserver = '192.168.1.154';
+const dbname = 'pruebachat';
 
-var dbList = [];
-const dbExcluded = ['admin', 'config', 'local'];
-
-var connection = mongoose.createConnection(`mongodb://${dbserver}`)
-connection.on('open', () => {
-    new Admin(connection.db).listDatabases((err, result) => {
-        result.databases.forEach(db =>{
-            if(!dbExcluded.includes(db.name)){
-                dbList.push(db.name)
-            }
-        })
-    });
-});
+//Db connection
+mongoose.connect(`mongodb://${dbserver}/${dbname}`,
+    () => {
+        console.log('db is coneccted')
+    }, err => {
+        console.log(err)
+    })
 
 const app = express();
 
@@ -30,18 +25,29 @@ app.use(express.json());
 app.use(cors());
 
 
-app.get('/chatlog/:dbName', async (req, res) => {
-    var databaseName = req.params.dbName
-    var chatlog = []
+app.get('/chatlog/:eventName', async (req, res) => {
+    var modelName = req.params.eventName
+    var chatlog = await Message(modelName).find({})
+    res.status(200).send(chatlog)
+})
 
-    if(dbList.includes(databaseName)){
-        var dbAux = connection.useDb(databaseName)
-        var messages = dbAux.model('Message', ChatMessage);
-        var chatlog = await messages.find({});
+app.get('/event/:eventCode', async (req, res) => {
+    var eventCode = req.params.eventCode
+    var eventDetails = await Event.find({code: eventCode})
+    res.status(200).send(eventDetails)
+})
+
+app.post('/admin/event', async (req, res)  =>{
+    if(req.body.auth === '#laUVesk4k4'){
+        var event = new Event(req.body)
+
+        await event.save()
+        res.status(201).send(req.body)
     }
-
-    res.send(chatlog)
-  })
+    else{
+        res.status(404).send({xd: 'xd'})
+    }
+})
 
 app.listen(port, () => {
     console.log(`App running on port ${port}`)

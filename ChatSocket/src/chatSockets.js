@@ -1,7 +1,7 @@
 const path = require('path');
-const Message = require(path.join(__dirname, 'models/chat.js'))
 
-module.exports = function (io) {
+module.exports = function (io, modelName) {
+    const Message = require(path.join(__dirname, 'models/chat.js'))(modelName)
     users = {};
     viewers = 0;
 

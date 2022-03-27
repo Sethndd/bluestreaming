@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
-const ChatMessage = new Schema({
+const Message = new Schema({
     name: String,
     text: String,
     time: {
@@ -10,4 +10,6 @@ const ChatMessage = new Schema({
     }
 });
 
-module.exports = mongoose.model('Message', ChatMessage);
+module.exports = function (modelName) {
+    return mongoose.model('Message', Message, modelName);
+}
