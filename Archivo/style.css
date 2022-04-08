@@ -8,6 +8,11 @@ body{
     overflow-y: hidden;
 }
 
+footer{
+    background-color: #67c7bb;
+    visibility: hidden;
+}
+
 #logo{
     height: 10vh;
     padding-top: 10%;

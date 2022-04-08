@@ -1,6 +1,6 @@
 //Editables
 const eventCode = 'messages';
-const apiUrl = 'localhost';
+const apiUrl = 'http://ovfilm.com';
 const apiPort = '1623';
 
 //Obtaining DOM elements from interface
