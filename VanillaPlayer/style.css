@@ -1,0 +1,98 @@
+/* .button {
+    border: solid 1px;
+    border-color: red;
+} */
+body{
+    background-color: #67c7bb;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+#logo{
+    height: 10vh;
+    padding-top: 10%;
+}
+
+#chatBox{
+    height: 60vh;
+    /* overflow: hidden; */
+    overflow: auto;
+    scroll-behavior: smooth;
+    overflow-x: hidden;   
+}
+
+#messageBox{
+    height: 5vh;
+}
+
+/* #videoHeader{
+    height: 10vh;
+} */
+
+#videoBox{
+    height: 60vh;
+    /* align-content: center; */
+    display: flex;
+    justify-content: center;
+}
+#videoFooter{
+    height: 5vh;
+}
+#videoElement{
+    margin: 0 auto;
+    /* height:inherit; */
+}
+.footer{
+    background-color: #67c7bb
+}
+
+#messageBox{
+    height: fit-content;
+}
+
+#btnJoinChat{
+    margin: 2%;
+}
+
+#txtMessage{
+    margin: 2%;
+}
+
+#btnSend{
+    margin: 2%;
+}
+
+#img{
+    height: 10vh;
+}
+
+.is-equal-height {
+    height: 100%;
+}
+
+/* Works on Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: gray gainsboro;
+  }
+  
+  /* Works on Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    display: none;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 20px;
+    border: 1px solid gray;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  body::-webkit-scrollbar-track-piece {
+    background: #67c7bb;       
+  }
