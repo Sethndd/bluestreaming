@@ -1,7 +1,7 @@
 var username = ''
 
 //editable variables: 
-const eventCode = 'lsdv081922_teonna&anthony'
+const eventCode = 'TeleUV'
 const serverUrl = 'ovfilm.com'
 const apiPort = 1623
 const chatSocketPort = 1624

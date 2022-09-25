@@ -3,7 +3,7 @@
     border-color: red;
 } */
 body{
-    background-color: #67c7bb;
+    background-color: #005BAA;
     overflow-x: hidden;
     overflow-y: hidden;
 }
@@ -43,7 +43,7 @@ body{
     /* height:inherit; */
 }
 .footer{
-    background-color: #67c7bb
+    background-color: #005BAA
 }
 
 #messageBox{
@@ -94,5 +94,5 @@ body{
     background: #555;
   }
   body::-webkit-scrollbar-track-piece {
-    background: #67c7bb;       
+    background: #005BAA;       
   }
