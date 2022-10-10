@@ -2,6 +2,7 @@ const path = require('path');
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
+const { url } = require('inspector');
 const Message = require(path.join(__dirname, 'models/chat.js'))
 const Event = require(path.join(__dirname, 'models/event.js'))
 
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(cors());
 
 
+// Endpoints
 app.get('/chatlog/:eventName', async (req, res) => {
     var collectionName = req.params.eventName
     var chatlog = []
@@ -41,6 +43,30 @@ app.get('/event/:eventCode', async (req, res) => {
     res.status(200).send(eventDetails[0])
 })
 
+app.get('/eventlist', async (req, res) =>{
+    var events = await Event.find({})
+
+    var filteredEvents = events.map(element =>{
+        const regex = new RegExp('^ls.*$');
+
+        if(regex.test(element.code)){
+            return {
+                code: element.code,
+                title: element.title,
+                desciption: element.desciption,
+                url: 'ovfilm.com/livestream/' + element.code,
+                img : 'ovfilm.com/livestream/' + element.code + '/img.jpg',
+            };
+        }
+    });
+
+    var results = filteredEvents.filter(element => {
+        return element != null;
+      });
+
+    res.status(200).send(results)
+})
+
 app.post('/admin/event', async (req, res)  =>{
     if(req.body.auth === '#laUVesk4k4'){
         var event = new Event(req.body)
@@ -52,6 +78,7 @@ app.post('/admin/event', async (req, res)  =>{
         res.status(404).send({xd: 'xd'})
     }
 })
+
 
 app.listen(port, () => {
     console.log(`App running on port ${port}`)
